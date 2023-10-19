@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<a type="button" class="btn btn-success" th:href="${'/add'}">Add an Item</a>&nbsp;
+<a type="button" class="btn btn-alert" th:href="${'/namesort'}">Sort by Name</a>&nbsp;
+<a type="button" class="btn btn-alert" th:href="${'/idsort'}">Sort by ID</a>&nbsp;
+
+<section id="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${itemList.size() gt 0}" th:each="item : ${itemList}">
+            <td th:text="${item.id}">1</td>
+            <td th:text="${item.name}">John Doe</td>
+            <td th:text="${item.description}">This is a placeholder description.</td>
+            <td>
+                <img th:src="${item.image}" width="100"
+                     height="100">
+            </td>
+            <td>
+                <a type="button" class="btn btn-primary" th:href="${'/edit/' + item.id}">Edit</a>&nbsp;
+            </td>
+            <td>
+                &nbsp;
+                <a type="button" class="btn btn-danger" th:href="${'/delete/' + item.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form action="/search" method="post">
+        <div class="mb-3">
+            <label for="nameSearch" class="form-label">Item Name</label>
+            <input type="text" class="form-control" id="nameSearch"
+                   placeholder="Name" name="nameSearch">
+        </div>
+        <H4>OR</H4>
+        <div class="mb-3">
+            <label for="idSearch" class="form-label">ID Number</label>
+            <input type="number" class="form-control" id="idSearch"
+                   placeholder="ID Number" name="idSearch">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</section>
+
+
+</body>
+</html>
